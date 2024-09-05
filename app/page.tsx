@@ -12,7 +12,7 @@ import {
 } from '@/app/types';
 
 import Charts from './components/charts/page';
-import { API } from './utils/api';
+import { API } from './lib/api';
 
 export default function Automaticas() {
     const [loading, setLoading] = useState<boolean>(true);

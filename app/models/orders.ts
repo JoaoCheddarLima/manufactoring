@@ -10,38 +10,12 @@ const item = new Schema({
     description: { type: String, required: true },
     status: { type: String, required: true },
     amount: { type: Number, required: true },
+
     amountDone: { type: Number, default: 0 },
+
     requestedAt: { type: Number, required: true },
+    
     updatedAt: { type: Number },
-    sector: { type: String, required: true },
-    issues: [
-        {
-            description: { 
-                type: String
-            },
-            status: { type: String },
-            createdAt: { type: Number }
-        }
-    ],
-    history: [
-        {
-            amount: {
-                type: Number
-            },
-            timestamp: {
-                type: Number
-            },
-            emitedBy: {
-                type: String
-            },
-            rework: {
-                type: Boolean
-            },
-            quality: {
-                type: Number
-            }
-        }
-    ]
 });
 
 let modeledFix = mongoose.models.Orders

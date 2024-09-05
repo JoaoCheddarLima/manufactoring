@@ -3,7 +3,6 @@ import {
   useState,
 } from 'react';
 
-import { MockManual } from '@/app/mocks/manual';
 import {
   OrderDto,
   Status,
@@ -16,21 +15,23 @@ import {
 
 export function OrdemCard(
     {
-        filled = MockManual[0]
+        filled
     }:
         {
             filled?: OrderDto
         }
 ) {
-    const [description, setDescription] = useState<string>('');
-    const [amount, setAmount] = useState<number>(0);
+    const [description, setDescription] = useState<string>();
+    const [amount, setAmount] = useState<number>();
     const [status, setStatus] = useState<Status>(Status.Waiting);
+    const [orderId, setID] = useState<number>();
 
     useEffect(() => {
         if (filled) {
             setDescription(filled.description);
             setAmount(filled.amount);
             setStatus(filled.status);
+            setID(filled.id);
         }
     }, [filled])
 
@@ -41,6 +42,19 @@ export function OrdemCard(
                     filled ? 'Editando ordem' : 'Nova ordem'
                 }
             </h1>
+            {
+                !filled && (
+                    <TextField
+                        value={description || ''}
+                        placeholder='ID Produto'
+                        type='number'
+                        onChange={(e) => {
+                            setID(Number(e.target.value));
+                        }}
+                        required
+                    />
+                )
+            }
             <TextField
                 value={description || ''}
                 placeholder='Descrição do produto'
@@ -50,9 +64,9 @@ export function OrdemCard(
                 required
             />
             <TextField
-                value={amount || 0}
+                value={amount}
                 type='number'
-                placeholder='Quantidade de produtos'
+                placeholder='Quantidade'
                 onChange={(e) => {
                     setAmount(Number(e.target.value));
                 }}
