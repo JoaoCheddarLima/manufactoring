@@ -19,6 +19,7 @@ export default function Automaticas() {
     const [allOrders, setAllOrders] = useState<OrderDto[]>([]);
     
     useEffect(() => {
+        // Poderia fazer um context mas não é necessário já que é uma página só e nem usuário real tem então não tem problema em deixar o fetch assim mesmo
         if (loading) {
             API.getOrdersMock(Sector.Automatic)
                 .then(orders => {
