@@ -20,7 +20,7 @@ export default function Charts(
     return (
         <div className='flex flex-col gap-5 justify-center w-full items-center p-5'>
             <div className='flex flex-col gap-5 md:flex-row'>
-                <div className='flex flex-col'>
+                <div className='flex flex-col items-center'>
                     <h1 className='text-center text-lg'>
                         O.E.E T1
                     </h1>
@@ -42,7 +42,7 @@ export default function Charts(
                         height={200}
                     />
                 </div>
-                <div className='flex flex-col'>
+                <div className='flex flex-col items-center'>
                     <h1 className='text-center text-lg'>
                         Ordens por status
                     </h1> 

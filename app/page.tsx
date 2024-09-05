@@ -17,7 +17,7 @@ import { API } from './lib/api';
 export default function Automaticas() {
     const [loading, setLoading] = useState<boolean>(true);
     const [allOrders, setAllOrders] = useState<OrderDto[]>([]);
-    
+
     useEffect(() => {
         // Poderia fazer um context mas não é necessário já que é uma página só e nem usuário real tem então não tem problema em deixar o fetch assim mesmo
         if (loading) {
@@ -34,9 +34,14 @@ export default function Automaticas() {
             <Charts
                 orders={allOrders}
             />
-            <Kanban 
-                orders={allOrders}
-            />
+            <div className='flex flex-col'>
+                <h1 className='text-lg pl-5'>
+                    Controle de ordens
+                </h1>
+                <Kanban
+                    orders={allOrders}
+                />
+            </div>
         </div>
     );
 }

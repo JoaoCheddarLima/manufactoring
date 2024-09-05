@@ -58,7 +58,8 @@ export function KanbanGrid({
     children: React.ReactNode
 }) {
     return (
-        <div className='w-full h-max flex flex-col md:flex-row md:justify-between flex-wrap p-5 gap-5 md:gap-0 font-thin rounded-md'>
+        <div className='w-full h-full flex flex-col font-thin rounded-md p-5 gap-5 
+        md:h-max md:flex-row md:justify-between md:gap-0'>
             {children}
         </div>
     );
