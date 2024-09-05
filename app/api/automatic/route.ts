@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 
         const now = Date.now();
 
-        const order = await Orders.create({
+        await Orders.create({
             id,
             description,
             amount,
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
             requestedAt: now,
             updatedAt: now
         })
-        
+
         return NextResponse.json({
             message: 'Order created'
         });
