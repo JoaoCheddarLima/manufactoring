@@ -2,6 +2,7 @@ import { MockManual } from '../mocks/manual';
 import {
   OrderDto,
   Sector,
+  Status,
 } from '../types';
 
 //A classe API existe para facilitar as requisições no front como se possuissemos um SDK para o back.
@@ -12,6 +13,9 @@ export class API {
 
     private static async get<T>(path: string): Promise<T> {
         const response = await fetch(`${API.BASE_URL}${path}`);
+
+        console.log(response.json());
+
         return response.json();
     }
 
@@ -23,7 +27,6 @@ export class API {
             },
             body: JSON.stringify(body)
         });
-
         return response.json();
     }
 
@@ -33,5 +36,19 @@ export class API {
 
     public static async getOrdersMock(setor: Sector): Promise<OrderDto[]> {
         return MockManual;
+    }
+
+    public static async createOrder({
+        description,
+        amount,
+        id
+    }): Promise<void> {
+        return API.post('/automatic', {
+            id: id,
+            description: description,
+            amount: amount,
+            status: Status.Waiting,
+            sector: Sector.Automatic,
+        });
     }
 }

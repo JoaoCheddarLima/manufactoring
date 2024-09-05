@@ -5,6 +5,8 @@ import {
   useState,
 } from 'react';
 
+import { Toaster } from 'react-hot-toast';
+
 import Kanban from '@/app/components/kanban/page';
 import {
   OrderDto,
@@ -31,6 +33,7 @@ export default function Automaticas() {
 
     return (
         <div className="h-full flex flex-col gap-10">
+            <Toaster />
             <Charts
                 orders={allOrders}
             />

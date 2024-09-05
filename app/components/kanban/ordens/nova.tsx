@@ -3,6 +3,9 @@ import {
   useState,
 } from 'react';
 
+import toast from 'react-hot-toast';
+
+import { API } from '@/app/lib/api';
 import {
   OrderDto,
   Status,
@@ -35,8 +38,32 @@ export function OrdemCard(
         }
     }, [filled])
 
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        if (filled) {
+
+        } else {
+            toast.promise(
+                API.createOrder({
+                    description,
+                    amount,
+                    id: orderId
+                }),
+                {
+                    loading: 'Criando ordem...',
+                    success: 'Ordem criada com sucesso!',
+                    error: 'Erro ao criar ordem!'
+                }
+            )
+        }
+    }
+
     return (
-        <form className='flex flex-col gap-3'>
+        <form
+            className='flex flex-col gap-3'
+            onSubmit={handleSubmit}
+        >
             <h1 className='w-full text-center'>
                 {
                     filled ? 'Editando ordem' : 'Nova ordem'
@@ -45,7 +72,7 @@ export function OrdemCard(
             {
                 !filled && (
                     <TextField
-                        value={description || ''}
+                        value={orderId}
                         placeholder='ID Produto'
                         type='number'
                         onChange={(e) => {
@@ -56,7 +83,7 @@ export function OrdemCard(
                 )
             }
             <TextField
-                value={description || ''}
+                value={description}
                 placeholder='Descrição do produto'
                 onChange={(e) => {
                     setDescription(e.target.value);

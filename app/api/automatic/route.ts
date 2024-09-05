@@ -1,10 +1,14 @@
 import { NextResponse } from 'next/server';
 
+import connectToDb from '@/app/lib/db';
 import { OrderDto } from '@/app/types';
 
 import { Orders } from '../../models/orders';
 
+//Precisava da middlaware pra evitar esses connects to db e uma possivel abstração de try catch
+
 export async function GET(req: Request) {
+    await connectToDb();
     //podia perder tempo no error handling mas acho que o ideal é usar rede local pra esse tipo de atividade porque ai só depende de energia.
     try {
         const orders = await Orders.find();
@@ -16,7 +20,9 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-    const { body } = await req.json();
+    await connectToDb();
+
+    const body: OrderDto = await req.json();
 
     try {
         const {
@@ -24,7 +30,8 @@ export async function POST(req: Request) {
             description,
             amount,
             status,
-        }: OrderDto = body;
+        } = body;
+
 
         const now = Date.now();
 

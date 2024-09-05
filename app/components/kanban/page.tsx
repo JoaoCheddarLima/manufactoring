@@ -73,7 +73,9 @@ export default function Kanban(
                 <KanbanList>
                     {
                         waiting.map(order => (
-                            <KanbanListItem key={order.id}>
+                            <KanbanListItem
+                                key={order.id}
+                            >
                                 {order.description}
                             </KanbanListItem>
                         ))
