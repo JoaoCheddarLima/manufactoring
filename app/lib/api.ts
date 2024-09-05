@@ -14,14 +14,23 @@ export class API {
     private static async get<T>(path: string): Promise<T> {
         const response = await fetch(`${API.BASE_URL}${path}`);
 
-        console.log(response.json());
-
         return response.json();
     }
 
     private static async post<T>(path: string, body: any): Promise<T> {
         const response = await fetch(`${API.BASE_URL}${path}`, {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        });
+        return response.json();
+    }
+
+    private static async put<T>(path: string, body: any): Promise<T> {
+        const response = await fetch(`${API.BASE_URL}${path}`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -48,6 +57,21 @@ export class API {
             description: description,
             amount: amount,
             status: Status.Waiting,
+            sector: Sector.Automatic,
+        });
+    }
+
+    public static async updateOrder({
+        description,
+        amount,
+        id,
+        status
+    }): Promise<void> {
+        return API.put('/automatic', {
+            id: id,
+            description: description,
+            amount: amount,
+            status: status,
             sector: Sector.Automatic,
         });
     }

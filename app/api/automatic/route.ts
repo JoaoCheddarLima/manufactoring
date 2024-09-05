@@ -19,6 +19,34 @@ export async function GET(req: Request) {
     }
 }
 
+export async function PUT(req: Request) {
+    await connectToDb();
+
+    const body: OrderDto = await req.json();
+
+    try {
+        const {
+            id,
+            status,
+            amountDone
+        } = body;
+
+        const now = Date.now();
+
+        await Orders.updateOne({ id }, {
+            status,
+            amountDone,
+            updatedAt: now
+        });
+
+        return NextResponse.json({
+            message: 'Order updated'
+        });
+    } catch (err) {
+        return NextResponse.error();
+    }
+}
+
 export async function POST(req: Request) {
     await connectToDb();
 

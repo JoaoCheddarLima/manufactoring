@@ -18,7 +18,7 @@ import {
   KanbanList,
   KanbanListItem,
 } from './card/page';
-import { OrdemCard } from './ordens/nova';
+import { OrdemCard } from './ordens/card';
 
 export default function Kanban(
     {
@@ -31,6 +31,7 @@ export default function Kanban(
     const [waiting, setWaiting] = useState<OrderDto[]>([]);
     const [running, setRunning] = useState<OrderDto[]>([]);
     const [done, setDone] = useState<OrderDto[]>([]);
+    const [selectedOrder, setSelectedOrder] = useState<OrderDto>();
 
     const [waitingModalOpen, setWaitingModalOpen] = useState<boolean>(false);
 
@@ -54,6 +55,11 @@ export default function Kanban(
         }
     }, [orders])
 
+    function handleClose() {
+        setWaitingModalOpen(false);
+        setSelectedOrder(undefined);
+    }
+
     return (
         <KanbanGrid>
             <KanbanCard>
@@ -65,19 +71,31 @@ export default function Kanban(
                 </KanbanHeader>
                 <BaseModal
                     open={waitingModalOpen}
-                    handleClose={() => setWaitingModalOpen(false)}
+                    handleClose={handleClose}
                     handleOpen={() => setWaitingModalOpen(true)}
                 >
-                    <OrdemCard />
+                    <OrdemCard
+                        handleClose={handleClose}
+                        filled={selectedOrder}
+                    />
                 </BaseModal>
                 <KanbanList>
                     {
                         waiting.map(order => (
-                            <KanbanListItem
-                                key={order.id}
+                            <div
+                                key={order.id + 'base'}
+                                onClick={() => {
+                                    setSelectedOrder(order);
+                                    setWaitingModalOpen(true);
+                                }}
+                                className='cursor-pointer'
                             >
-                                {order.description}
-                            </KanbanListItem>
+                                <KanbanListItem
+                                    key={order.id}
+                                >
+                                    ({order.amount}) {order.description}
+                                </KanbanListItem>
+                            </div>
                         ))
                     }
                 </KanbanList>
@@ -89,9 +107,20 @@ export default function Kanban(
                 <KanbanList>
                     {
                         running.map(order => (
-                            <KanbanListItem key={order.id}>
-                                {order.description}
-                            </KanbanListItem>
+                            <div
+                                key={order.id + 'base'}
+                                onClick={() => {
+                                    setSelectedOrder(order);
+                                    setWaitingModalOpen(true);
+                                }}
+                                className='cursor-pointer'
+                            >
+                                <KanbanListItem
+                                    key={order.id}
+                                >
+                                    ({order.amount}) {order.description}
+                                </KanbanListItem>
+                            </div>
                         ))
                     }
                 </KanbanList>
@@ -103,9 +132,20 @@ export default function Kanban(
                 <KanbanList>
                     {
                         done.map(order => (
-                            <KanbanListItem key={order.id}>
-                                {order.description}
-                            </KanbanListItem>
+                            <div
+                                key={order.id + 'base'}
+                                onClick={() => {
+                                    setSelectedOrder(order);
+                                    setWaitingModalOpen(true);
+                                }}
+                                className='cursor-pointer'
+                            >
+                                <KanbanListItem
+                                    key={order.id}
+                                >
+                                    ({order.amount}) {order.description}
+                                </KanbanListItem>
+                            </div>
                         ))
                     }
                 </KanbanList>
