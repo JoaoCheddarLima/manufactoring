@@ -17,14 +17,14 @@ import {
   KanbanHeader,
   KanbanList,
   KanbanListItem,
-} from './card/page';
+} from './card/cards';
 import { OrdemCard } from './ordens/card';
 
 export default function Kanban(
     {
         orders
     }: {
-        orders: OrderDto[]
+        orders?: OrderDto[]
     }
 ) {
 

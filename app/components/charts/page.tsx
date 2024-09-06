@@ -1,22 +1,21 @@
-import * as React from 'react';
+'use client';
 
 import {
   OrderDto,
   Status,
 } from '@/app/types';
-import {
-  Gauge,
-  gaugeClasses,
-} from '@mui/x-charts/Gauge';
+import { Gauge } from '@mui/x-charts/Gauge';
 import { PieChart } from '@mui/x-charts/PieChart';
 
 export default function Charts(
     {
         orders
-    }:{
-        orders: OrderDto[]
+    }: {
+        orders?: OrderDto[]
     }
 ) {
+    if(!orders) return null;
+
     return (
         <div className='flex flex-col gap-5 justify-center w-full items-center p-5'>
             <div className='flex flex-col gap-5 md:flex-row'>
@@ -28,13 +27,7 @@ export default function Charts(
                         value={87.5}
                         startAngle={-110}
                         endAngle={110}
-
-                        sx={{
-                            [`& .${gaugeClasses.valueText}`]: {
-                                fontSize: 40,
-                                transform: 'translate(0px, 0px)',
-                            },
-                        }}
+                        className='text-4xl'
                         text={
                             ({ value, valueMax }) => `${value} / ${valueMax}`
                         }
@@ -45,7 +38,7 @@ export default function Charts(
                 <div className='flex flex-col items-center'>
                     <h1 className='text-center text-lg'>
                         Ordens por status
-                    </h1> 
+                    </h1>
                     <PieChart
                         series={[
                             {

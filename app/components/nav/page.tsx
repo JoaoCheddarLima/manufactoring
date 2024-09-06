@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import Link from 'next/link';
 
-import { WorkerCard } from './worker/page';
+import { WorkerCard } from './worker/card';
 
 export default function MainTopNav() {
     const [waitingModalOpen, setWaitingModalOpen] = useState<boolean>(false);
