@@ -23,11 +23,17 @@ export default function Automaticas() {
     useEffect(() => {
         // Poderia fazer um context mas não é necessário já que é uma página só e nem usuário real tem então não tem problema em deixar o fetch assim mesmo
         if (loading) {
+            setAllOrders([]);
+
             API.getOrders(Sector.Automatic)
                 .then(orders => {
                     setAllOrders(orders);
                     setLoading(false);
                 })
+        }
+
+        () => {
+            setLoading(false);
         }
     }, [loading]);
 
