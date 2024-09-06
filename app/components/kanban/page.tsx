@@ -38,6 +38,9 @@ export default function Kanban(
     const [waitingModalOpen, setWaitingModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
+        setWaiting([]);
+        setRunning([]);
+        setDone([]);
         for (const order of orders) {
             if (order.status == Status.Waiting) {
                 setWaiting(current => {
