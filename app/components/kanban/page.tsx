@@ -22,9 +22,11 @@ import { OrdemCard } from './ordens/card';
 
 export default function Kanban(
     {
-        orders
+        orders,
+        setLoading
     }: {
         orders?: OrderDto[]
+        setLoading?: (loading: boolean) => void
     }
 ) {
 
@@ -58,6 +60,7 @@ export default function Kanban(
     function handleClose() {
         setWaitingModalOpen(false);
         setSelectedOrder(undefined);
+        setLoading(true);
     }
 
     return (

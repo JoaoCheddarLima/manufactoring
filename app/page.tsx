@@ -31,6 +31,10 @@ export default function Automaticas() {
         }
     }, [loading]);
 
+    const handleLowerLevel = () => {
+        setLoading(true);
+    }
+
     return (
         <div className="h-full flex flex-col gap-10">
             <Toaster />
@@ -42,6 +46,7 @@ export default function Automaticas() {
                     Controle de ordens
                 </h1>
                 <Kanban
+                    setLoading={handleLowerLevel}
                     orders={allOrders}
                 />
             </div>
